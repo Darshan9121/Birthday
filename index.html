@@ -1,0 +1,1233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Little One's First Birthday</title>
+    <meta name="description" content="Celebrating our little one's first birthday with love and joy">
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One:wght@400&family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Nunito', sans-serif;
+            overflow-x: hidden;
+            background: linear-gradient(135deg, #A8E6CE 0%, #88D8C0 50%, #FFB07C 100%);
+            min-height: 100vh;
+            color: #2C3E50;
+        }
+
+        /* Reduce motion for accessibility */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        /* Sequence 1: Character Greeting */
+        .sequence-1 {
+            position: relative;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .floating-balloons {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .balloon {
+            position: absolute;
+            width: 40px;
+            height: 50px;
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+            opacity: 0.7;
+            animation: floatUp 8s infinite linear;
+        }
+
+        .balloon:nth-child(1) { background: #FFD93D; left: 10%; animation-delay: 0s; }
+        .balloon:nth-child(2) { background: #FF6B9D; left: 30%; animation-delay: 2s; }
+        .balloon:nth-child(3) { background: #74B3F7; left: 50%; animation-delay: 4s; }
+        .balloon:nth-child(4) { background: #A8E6CE; left: 70%; animation-delay: 6s; }
+        .balloon:nth-child(5) { background: #FFB07C; left: 90%; animation-delay: 1s; }
+
+        @keyframes floatUp {
+            0% { transform: translateY(100vh) rotate(0deg); }
+            100% { transform: translateY(-100px) rotate(360deg); }
+        }
+
+        .characters-container {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            max-width: 800px;
+            height: 600px;
+        }
+
+        .character {
+            position: absolute;
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 60px;
+            opacity: 0;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .character-1 {
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%) translateY(-200px);
+            background: linear-gradient(135deg, #FFB07C, #FF6B9D);
+            animation: slideDownBounce 1s ease-out 0.5s forwards;
+        }
+
+        .character-2 {
+            bottom: 20px;
+            left: 20%;
+            transform: translateY(200px);
+            background: linear-gradient(135deg, #74B3F7, #88D8C0);
+            animation: slideUpSpring 1s ease-out 1s forwards;
+        }
+
+        .character-3 {
+            left: 20px;
+            top: 50%;
+            transform: translateX(-200px) translateY(-50%) rotate(-180deg);
+            background: linear-gradient(135deg, #A8E6CE, #FFD93D);
+            animation: slideRightRotate 1s ease-out 1.5s forwards;
+        }
+
+        .character-4 {
+            right: 20px;
+            top: 30%;
+            transform: translateX(200px) translateY(-50%) scale(0);
+            background: linear-gradient(135deg, #FF6B9D, #FFB07C);
+            animation: slideLeftScale 1s ease-out 2s forwards;
+        }
+
+        @keyframes slideDownBounce {
+            0% { transform: translateX(-50%) translateY(-200px); opacity: 0; }
+            60% { transform: translateX(-50%) translateY(20px); opacity: 1; }
+            80% { transform: translateX(-50%) translateY(-10px); opacity: 1; }
+            100% { transform: translateX(-50%) translateY(0); opacity: 1; }
+        }
+
+        @keyframes slideUpSpring {
+            0% { transform: translateY(200px); opacity: 0; }
+            50% { transform: translateY(-20px); opacity: 1; }
+            70% { transform: translateY(10px); opacity: 1; }
+            100% { transform: translateY(0); opacity: 1; }
+        }
+
+        @keyframes slideRightRotate {
+            0% { transform: translateX(-200px) translateY(-50%) rotate(-180deg); opacity: 0; }
+            100% { transform: translateX(0) translateY(-50%) rotate(0deg); opacity: 1; }
+        }
+
+        @keyframes slideLeftScale {
+            0% { transform: translateX(200px) translateY(-50%) scale(0); opacity: 0; }
+            100% { transform: translateX(0) translateY(-50%) scale(1); opacity: 1; }
+        }
+
+        .speech-bubble {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            background: white;
+            padding: 30px 10px;
+            border-radius: 30px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+            text-align: center;
+            z-index: 3;
+            opacity: 0;
+            animation: bubbleAppear 1s ease-out 2.5s forwards;
+        }
+
+        .speech-bubble::before {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 15px solid transparent;
+            border-right: 15px solid transparent;
+            border-top: 15px solid white;
+        }
+
+        
+        .birthday-text {
+            font-family: 'Fredoka One', cursive;
+            font-size: clamp(24px, 5vw, 48px);
+            color: #FF6B9D;
+            margin-bottom: 10px;
+            overflow: hidden;
+            width: 100%;
+        }
+
+        .letter {
+            display: inline-block;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        @keyframes bubbleAppear {
+            0% { transform: translate(-50%, -50%) scale(0); opacity: 0; }
+            70% { transform: translate(-50%, -50%) scale(1.1); opacity: 1; }
+            100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+        }
+
+        @keyframes letterReveal {
+            0% { opacity: 0; transform: translateY(20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Sequence 2: Parent Introduction */
+        .sequence-2 {
+            position: relative;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #74B3F7 0%, #A8E6CE 100%);
+            opacity: 0;
+            transform: translateY(50px);
+        }
+
+        .parent-card {
+            background: white;
+            border-radius: 25px;
+            padding: 50px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+            max-width: 700px;
+            width: 90%;
+            display: flex;
+            align-items: center;
+            gap: 40px;
+            opacity: 0;
+            transform: scale(0.8);
+        }
+
+        .parent-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 60px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transform: translateX(-100px);
+            opacity: 0;
+        }
+
+        .parent-avatar.left {
+            background: linear-gradient(135deg, #FF6B9D, #FFB07C);
+        }
+
+        .parent-avatar.right {
+            background: linear-gradient(135deg, #74B3F7, #88D8C0);
+            transform: translateX(100px);
+        }
+
+        .parent-info {
+            flex: 1;
+            text-align: center;
+        }
+
+        .parent-info h2 {
+            font-family: 'Fredoka One', cursive;
+            font-size: clamp(28px, 4vw, 36px);
+            color: #2C3E50;
+            margin-bottom: 20px;
+            opacity: 0;
+        }
+
+        .parent-info p {
+            font-size: clamp(16px, 3vw, 18px);
+            line-height: 1.6;
+            margin-bottom: 15px;
+            color: #34495e;
+            opacity: 0;
+        }
+
+        .parent-name {
+            font-weight: 600;
+            color: #FF6B9D;
+        }
+
+        /* Sequence 3: Car Timeline */
+        .sequence-3 {
+            position: relative;
+            min-height: 100vh;
+            background: linear-gradient(to bottom, #87CEEB 0%, #98FB98 40%, #90EE90 100%);
+            padding: 50px 20px;
+            opacity: 0;
+        }
+
+        .timeline-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .timeline-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .timeline-header h2 {
+            font-family: 'Fredoka One', cursive;
+            font-size: clamp(32px, 5vw, 48px);
+            color: #2C3E50;
+            margin-bottom: 20px;
+        }
+
+        .timeline-track {
+            position: relative;
+            height: 120px;
+            background: #8B4513;
+            border-radius: 60px;
+            margin: 50px 0;
+            overflow-x: hidden;
+            box-shadow: inset 0 10px 20px rgba(0,0,0,0.3);
+        }
+
+        .track-line {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: #FFFF00;
+            transform: translateY(-50%);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .month-stops {
+            position: relative;
+            height: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 60px;
+        }
+
+        .month-stop {
+            position: relative;
+            width: 40px;
+            height: 40px;
+            background: #FF6B9D;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+
+        .month-stop::before {
+            content: '';
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 8px solid transparent;
+            border-right: 8px solid transparent;
+            border-bottom: 15px solid #FFD93D;
+        }
+
+        .month-stop:hover {
+            transform: scale(1.2);
+            background: #FF4081;
+        }
+
+        .birthday-car {
+            position: absolute;
+            top: 50%;
+            left: 20px;
+            transform: translateY(-50%);
+            width: 80px;
+            height: 50px;
+            background: #FF6B9D;
+            border-radius: 15px 15px 5px 5px;
+            transition: all 2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            z-index: 10;
+        }
+
+        .car-roof {
+            position: absolute;
+            top: -20px;
+            left: 10px;
+            right: 10px;
+            height: 25px;
+            background: #FF4081;
+            border-radius: 10px 10px 0 0;
+        }
+
+        .car-wheel {
+            position: absolute;
+            bottom: -10px;
+            width: 20px;
+            height: 20px;
+            background: #2C3E50;
+            border-radius: 50%;
+            border: 3px solid #34495e;
+        }
+
+        .car-wheel.front { right: 10px; }
+        .car-wheel.back { left: 10px; }
+
+        .car-decoration {
+            position: absolute;
+            top: -35px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 20px;
+        }
+
+        /* Modal for month details */
+        .month-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .month-modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 600px;
+            width: 90%;
+            text-align: center;
+            transform: scale(0.7);
+            transition: transform 0.3s ease;
+            position: relative;
+        }
+
+        .month-modal.active .modal-content {
+            transform: scale(1);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: #FF6B9D;
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            font-size: 20px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            z-index: 10;
+        }
+
+        .modal-close:hover {
+            background: #FF4081;
+        }
+
+        .media-slider-container {
+            width: 100%;
+            height: 300px;
+            border-radius: 15px;
+            overflow: hidden;
+            margin: 0 auto 20px;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .media-slider {
+            display: flex;
+            width: 200%;
+            height: 100%;
+            transition: transform 0.8s ease-in-out;
+        }
+
+        .media-item {
+            flex: 0 0 50%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #FFB07C, #FF6B9D);
+        }
+
+        .media-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 0;
+        }
+
+        .media-item video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 0;
+        }
+
+        .media-item.placeholder {
+            font-size: 60px;
+            color: white;
+        }
+
+        .slider-indicators {
+            position: absolute;
+            bottom: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 8px;
+            z-index: 5;
+        }
+
+        .indicator {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.5);
+            transition: background 0.3s ease;
+            cursor: pointer;
+        }
+
+        .indicator.active {
+            background: white;
+        }
+
+        .modal-image {
+            display: none; /* Hide the old image container */
+        }
+
+        .modal-title {
+            font-family: 'Fredoka One', cursive;
+            font-size: 24px;
+            color: #2C3E50;
+            margin-bottom: 15px;
+        }
+
+        .modal-description {
+            font-size: 16px;
+            line-height: 1.6;
+            color: #34495e;
+        }
+
+        /* Celebration effects */
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: #FFD93D;
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        @keyframes confettiFall {
+            0% { transform: translateY(-100vh) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .parent-card {
+                flex-direction: column;
+                text-align: center;
+                padding: 30px;
+                gap: 20px;
+            }
+            
+            .parent-avatar {
+                transform: translateY(-50px);
+            }
+            
+            .parent-avatar.right {
+                transform: translateY(50px);
+            }
+            
+            .month-stops {
+                padding: 0 30px;
+            }
+            
+            .timeline-track {
+                height: 100px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .character {
+                width: 80px;
+                height: 80px;
+                font-size: 40px;
+            }
+            
+            .speech-bubble {
+                padding: 20px 5px;
+            }
+            
+            .birthday-car {
+                width: 60px;
+                height: 40px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Sequence 1: Character Greeting -->
+    <section class="sequence-1" id="sequence1">
+        <div class="floating-balloons">
+            <div class="balloon"></div>
+            <div class="balloon"></div>
+            <div class="balloon"></div>
+            <div class="balloon"></div>
+            <div class="balloon"></div>
+        </div>
+        
+        <div class="characters-container">
+            <div class="character character-1">🐻</div>
+            <div class="character character-2">🐰</div>
+            <div class="character character-3">🐘</div>
+            <div class="character character-4">🦁</div>
+            
+            <div class="speech-bubble">
+                <div class="birthday-text" id="birthdayText">Happy Birthday Manvik!</div>
+                <p>🎉 Our Little Star is One! 🎉</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sequence 2: Parent Introduction -->
+    <section class="sequence-2" id="sequence2">
+        <div class="parent-card">
+            <div class="parent-avatar left">👩</div>
+            <div class="parent-info">
+                <h2>Meet the Parents</h2>
+                <p><span class="parent-name">Mom: Manali Hiragar</span><br>Loving mother who makes every day magical</p>
+                <p><span class="parent-name">Dad: Sagar Hiragar</span><br>Proud father and professional fun-maker</p>
+            </div>
+            <div class="parent-avatar right">👨</div>
+        </div>
+    </section>
+
+    <!-- Sequence 3: Car Timeline -->
+    <section class="sequence-3" id="sequence3">
+        <div class="timeline-container">
+            <div class="timeline-header">
+                <h2>Manvik's First Year Journey</h2>
+                <p>Click on each month to see the memories!</p>
+            </div>
+            
+            <div class="timeline-track">
+                <div class="track-line"></div>
+                <div class="month-stops">
+                    <div class="month-stop" data-month="1">1</div>
+                    <div class="month-stop" data-month="2">2</div>
+                    <div class="month-stop" data-month="3">3</div>
+                    <div class="month-stop" data-month="4">4</div>
+                    <div class="month-stop" data-month="5">5</div>
+                    <div class="month-stop" data-month="6">6</div>
+                    <div class="month-stop" data-month="7">7</div>
+                    <div class="month-stop" data-month="8">8</div>
+                    <div class="month-stop" data-month="9">9</div>
+                    <div class="month-stop" data-month="10">10</div>
+                    <div class="month-stop" data-month="11">11</div>
+                    <div class="month-stop" data-month="12">12</div>
+                </div>
+                
+                <div class="birthday-car">
+                    <div class="car-roof"></div>
+                    <div class="car-wheel front"></div>
+                    <div class="car-wheel back"></div>
+                    <div class="car-decoration">🎈</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Month Modal -->
+    <div class="month-modal" id="monthModal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeMonthModal()">&times;</button>
+            <div class="media-slider-container">
+                <div class="media-slider" id="mediaSlider">
+                    <div class="media-item placeholder" id="mediaItem1">📸</div>
+                    <!-- <div class="media-item placeholder" id="mediaItem2">🎬</div> -->
+                </div>
+                <div class="slider-indicators">
+                    <div class="indicator active" onclick="goToSlide(0)"></div>
+                    <div class="indicator" onclick="goToSlide(1)"></div>
+                </div>
+            </div>
+            <h3 class="modal-title" id="modalTitle">Month 1</h3>
+            <p class="modal-description" id="modalDescription">Our precious little one's first month of life!</p>
+        </div>
+    </div>
+
+    <script>
+        // Monthly data - replace with actual photos and descriptions
+        const monthlyData = {
+            1: { 
+                emoji: '👶', 
+                title: 'Month 1 - Hello World!', 
+                description: 'Our beautiful baby was born! First smiles and lots of sleep.',
+                image: 'https://lh3.googleusercontent.com/d/1YqNLu4I0aOwzvLzGJz5w0ezQfaj0eGn9',
+                // video: 'https://www.w3schools.com/html/mov_bbb.mp4'
+            },
+            2: { 
+                emoji: '😊', 
+                title: 'Month 2 - First Smiles', 
+                description: 'Those magical first social smiles that melted our hearts completely.',
+                image: 'https://lh3.googleusercontent.com/d/1vieHRLkFlwhVK77W_rHzAnatIil2fhmv',
+                // video: 'https://www.w3schools.com/html/movie.mp4'
+            },
+            3: { 
+                emoji: '🤱', 
+                title: 'Month 3 - Growing Strong', 
+                description: 'Better head control and longer periods of alert, happy time.',
+                image: 'https://lh3.googleusercontent.com/d/1YqNLu4I0aOwzvLzGJz5w0ezQfaj0eGn9',
+                // video: 'https://www.w3schools.com/html/mov_bbb.mp4'
+            },
+            4: { 
+                emoji: '🤲', 
+                title: 'Month 4 - Reaching Out', 
+                description: 'Discovering hands and reaching for toys with determination.',
+                image: 'https://lh3.googleusercontent.com/d/1YqNLu4I0aOwzvLzGJz5w0ezQfaj0eGn9',
+                // video: 'https://www.w3schools.com/html/movie.mp4'
+            },
+            5: { 
+                emoji: '🔄', 
+                title: 'Month 5 - Rolling Over', 
+                description: 'First successful roll from tummy to back - such an achievement!',
+                image: 'https://lh3.googleusercontent.com/d/1YqNLu4I0aOwzvLzGJz5w0ezQfaj0eGn9',
+                // video: 'https://www.w3schools.com/html/mov_bbb.mp4'
+            },
+            6: { 
+                emoji: '🥄', 
+                title: 'Month 6 - First Foods', 
+                description: 'Starting solids! Messy meals and adorable reactions to new tastes.',
+                image: 'https://lh3.googleusercontent.com/d/1YqNLu4I0aOwzvLzGJz5w0ezQfaj0eGn9',
+                // video: 'https://www.w3schools.com/html/movie.mp4'
+            },
+            7: { 
+                emoji: '🪑', 
+                title: 'Month 7 - Sitting Up', 
+                description: 'Sitting without support and exploring the world from a new perspective.',
+                image: 'https://lh3.googleusercontent.com/d/1YqNLu4I0aOwzvLzGJz5w0ezQfaj0eGn9',
+                // video: 'https://www.w3schools.com/html/mov_bbb.mp4'
+            },
+            8: { 
+                emoji: '🚼', 
+                title: 'Month 8 - Crawling', 
+                description: 'On the move! Crawling everywhere and getting into everything.',
+                image: 'https://lh3.googleusercontent.com/d/1YqNLu4I0aOwzvLzGJz5w0ezQfaj0eGn9',
+                // video: 'https://www.w3schools.com/html/movie.mp4'
+            },
+            9: { 
+                emoji: '👏', 
+                title: 'Month 9 - Clapping Hands', 
+                description: 'Clapping, waving, and communicating in the sweetest ways.',
+                image: 'https://lh3.googleusercontent.com/d/1YqNLu4I0aOwzvLzGJz5w0ezQfaj0eGn9',
+                // video: 'https://www.w3schools.com/html/mov_bbb.mp4'
+            },
+            10: { 
+                emoji: '🧍', 
+                title: 'Month 10 - Standing Tall', 
+                description: 'Pulling up to stand and cruising along furniture with confidence.',
+                image: 'https://lh3.googleusercontent.com/d/1YqNLu4I0aOwzvLzGJz5w0ezQfaj0eGn9',
+            },
+            11: { 
+                emoji: '👶', 
+                title: 'Month 11 - Almost Walking', 
+                description: 'Taking those first wobbly steps and preparing for independence.',
+                image: 'https://lh3.googleusercontent.com/d/1YqNLu4I0aOwzvLzGJz5w0ezQfaj0eGn9',
+                // video: 'https://www.w3schools.com/html/mov_bbb.mp4'
+            },
+            12: { 
+                emoji: '🎂', 
+                title: 'Month 12 - One Year Old!', 
+                description: 'A whole year of love, growth, and incredible memories together!',
+                image: 'https://lh3.googleusercontent.com/d/1YqNLu4I0aOwzvLzGJz5w0ezQfaj0eGn9',
+                // video: 'https://www.w3schools.com/html/movie.mp4'
+            }
+        };
+
+        let currentSequence = 1;
+        let carPosition = 0;
+        let animationInProgress = false;
+        let carAnimationCompleted = false;
+        let parentAnimationCompleted = false;
+        let currentSlideIndex = 0;
+        let slideInterval = null;
+
+        // Initialize animations
+        document.addEventListener('DOMContentLoaded', function() {
+            // Start text animation after 3 seconds
+            setTimeout(() => {
+                animateTextLetters();
+            }, 3000);
+            
+            // Auto-scroll to parent section after 10 seconds
+            setTimeout(() => {
+                scrollToParentSection();
+            }, 10000);
+        });
+
+        // Scroll to parent section with animation
+        function scrollToParentSection() {
+            // Smooth scroll to parent section
+            document.getElementById('sequence2').scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+            
+            // Start parent section animation after scroll completes
+            setTimeout(() => {
+                showParentSection();
+            }, 1000);
+        }
+
+        // Scroll to timeline section with animation
+        function scrollToTimelineSection() {
+            // Smooth scroll to timeline section
+            document.getElementById('sequence3').scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+            
+            // Start timeline section animation after scroll completes
+            setTimeout(() => {
+                showTimelineSection();
+            }, 1000);
+        }
+        function animateTextLetters() {
+            const text = document.getElementById('birthdayText');
+            const letters = text.textContent.split('');
+            text.innerHTML = '';
+            
+            letters.forEach((letter, index) => {
+                const span = document.createElement('span');
+                span.className = 'letter';
+                span.textContent = letter === ' ' ? '\u00A0' : letter;
+                span.style.animationDelay = `${index * 0.1}s`;
+                span.style.animation = 'letterReveal 0.5s ease-out forwards';
+                text.appendChild(span);
+            });
+        }
+
+        // Show parent section
+        function showParentSection() {
+            const sequence2 = document.getElementById('sequence2');
+            sequence2.style.opacity = '1';
+            sequence2.style.transform = 'translateY(0)';
+            sequence2.style.transition = 'all 1s ease-out';
+            
+            setTimeout(() => {
+                const card = document.querySelector('.parent-card');
+                card.style.opacity = '1';
+                card.style.transform = 'scale(1)';
+                card.style.transition = 'all 0.8s ease-out';
+                
+                setTimeout(() => {
+                    const leftAvatar = document.querySelector('.parent-avatar.left');
+                    const rightAvatar = document.querySelector('.parent-avatar.right');
+                    const info = document.querySelector('.parent-info');
+                    
+                    leftAvatar.style.transform = 'translateX(0)';
+                    leftAvatar.style.opacity = '1';
+                    leftAvatar.style.transition = 'all 0.6s ease-out';
+                    
+                    rightAvatar.style.transform = 'translateX(0)';
+                    rightAvatar.style.opacity = '1';
+                    rightAvatar.style.transition = 'all 0.6s ease-out 0.2s';
+                    
+                    setTimeout(() => {
+                        const h2 = info.querySelector('h2');
+                        const paragraphs = info.querySelectorAll('p');
+                        
+                        h2.style.opacity = '1';
+                        h2.style.transition = 'opacity 0.6s ease-out';
+                        
+                        paragraphs.forEach((p, index) => {
+                            setTimeout(() => {
+                                p.style.opacity = '1';
+                                p.style.transition = 'opacity 0.6s ease-out';
+                            }, index * 300);
+                        });
+                        
+                        // Mark parent animation as completed and auto-scroll to timeline after 4 seconds
+                        setTimeout(() => {
+                            parentAnimationCompleted = true;
+                            scrollToTimelineSection();
+                        }, 4000);
+                    }, 400);
+                }, 500);
+            }, 200);
+        }
+
+        // Show timeline section
+        function showTimelineSection() {
+            const sequence3 = document.getElementById('sequence3');
+            sequence3.style.opacity = '1';
+            sequence3.style.transition = 'opacity 1s ease-out';
+            
+            // Only start car animation if parent animation is completed and car hasn't run yet
+            setTimeout(() => {
+                if (parentAnimationCompleted && !carAnimationCompleted) {
+                    startCarAnimation();
+                }
+            }, 1000);
+        }
+
+        // Start car animation
+        function startCarAnimation() {
+            if (animationInProgress || carAnimationCompleted) return;
+            
+            animationInProgress = true;
+            carAnimationCompleted = true; // Mark as completed so it only runs once
+            
+            const car = document.querySelector('.birthday-car');
+            const stops = document.querySelectorAll('.month-stop');
+            const trackWidth = document.querySelector('.timeline-track').offsetWidth;
+            const stopWidth = trackWidth / 12;
+            
+            let currentStop = 0;
+            
+            function moveToNextStop() {
+                if (currentStop >= stops.length) {
+                    animationInProgress = false;
+                    createCelebrationEffects();
+                    return;
+                }
+                
+                const targetPosition = 60 + (currentStop * (trackWidth - 120) / 11);
+                car.style.left = targetPosition + 'px';
+                
+                setTimeout(() => {
+                    
+
+               
+                        showMonthModal(currentStop + 1);
+
+                    currentStop++;
+                    setTimeout(moveToNextStop, 1000); // Extended to 5 seconds
+                }, 1000);
+            }
+            
+            moveToNextStop();
+        }
+
+        // Show month modal with media slider
+        function showMonthModal(month,isAuto = false) {
+            const modal = document.getElementById('monthModal');
+            const modalTitle = document.getElementById('modalTitle');
+            const modalDescription = document.getElementById('modalDescription');
+            const mediaItem1 = document.getElementById('mediaItem1');
+            // const mediaItem2 = document.getElementById('mediaItem2');
+            
+            const data = monthlyData[month];
+            modalTitle.textContent = data.title;
+            modalDescription.textContent = data.description;
+            
+            // Reset slider position and indicators
+            currentSlideIndex = 0;
+            const slider = document.getElementById('mediaSlider');
+            slider.style.transform = 'translateX(0%)';
+            updateIndicators();
+            
+            // Initially show placeholder emoji
+            mediaItem1.innerHTML = `<span style="font-size: 60px; color: white;">${data.emoji}</span>`;
+            mediaItem1.className = 'media-item placeholder';
+            // mediaItem2.innerHTML = `<span style="font-size: 60px; color: white;">${data.emoji}</span>`;
+            // mediaItem2.className = 'media-item placeholder';
+            
+            modal.classList.add('active');
+
+           
+            
+            
+            
+            // Load actual media after 1.5 seconds
+            setTimeout(() => {
+                loadMediaContent(data, mediaItem1);
+                
+                if(month == 12)
+                {
+                    closeMonthModal();
+                    clearInterval(slideInterval);
+                }
+                else{
+                    startAutoSlide();
+                }
+            }, 500);
+        }
+
+        // Load media content (image and video)
+        function loadMediaContent(data, mediaItem1) {
+            console.log(data,mediaItem1);
+            
+            // Load image
+            if (data.image) {
+                const img = document.createElement('img');
+                img.src = data.image;
+                img.alt = data.title;
+                img.onload = () => {
+                    mediaItem1.innerHTML = '';
+                    mediaItem1.appendChild(img);
+                    mediaItem1.className = 'media-item';
+                };
+                img.onerror = () => {
+                    // Keep placeholder if image fails to load
+                    console.log('Image failed to load for', data.title);
+                };
+            }
+            
+            // Load video
+            // if (data.video) {
+            //     const video = document.createElement('video');
+            //     video.src = data.video;
+            //     video.muted = true;
+            //     video.autoplay = true;
+            //     video.loop = true;
+            //     video.controls = false;
+            //     video.onloadeddata = () => {
+            //         mediaItem2.innerHTML = '';
+            //         mediaItem2.appendChild(video);
+            //         mediaItem2.className = 'media-item';
+            //     };
+            //     video.onerror = () => {
+            //         // Keep placeholder if video fails to load
+            //         console.log('Video failed to load for', data.title);
+            //     };
+            // }
+        }
+
+        // Auto slide functionality
+        function startAutoSlide() {
+            clearInterval(slideInterval);
+            slideInterval = setInterval(() => {
+                currentSlideIndex = (currentSlideIndex + 1) % 2;
+                goToSlide(currentSlideIndex);
+            }, 3000); // 3 seconds between slides
+        }
+
+        // Manual slide control
+        function goToSlide(index) {
+            currentSlideIndex = index;
+            const slider = document.getElementById('mediaSlider');
+            const translateX = -index * 50; // Move by 50% for each slide
+            slider.style.transform = `translateX(${translateX}%)`;
+            updateIndicators();
+        }
+
+        // Update indicator dots
+        function updateIndicators() {
+            const indicators = document.querySelectorAll('.indicator');
+            indicators.forEach((indicator, index) => {
+                indicator.classList.toggle('active', index === currentSlideIndex);
+            });
+        }
+
+        // Close month modal
+        function closeMonthModal() {
+            const modal = document.getElementById('monthModal');
+            modal.classList.remove('active');
+            clearInterval(slideInterval); // Stop auto-sliding when modal closes
+        }
+
+        // Month stop click handler - only works if car animation is completed
+        document.querySelectorAll('.month-stop').forEach(stop => {
+            stop.addEventListener('click', function() {
+                const month = parseInt(this.dataset.month);
+                showMonthModal(month);
+            });
+        });
+
+        // Create celebration effects
+        function createCelebrationEffects() {
+            const colors = ['#FFD93D', '#FF6B9D', '#74B3F7', '#A8E6CE', '#FFB07C'];
+            
+            for (let i = 0; i < 50; i++) {
+                setTimeout(() => {
+                    const confetti = document.createElement('div');
+                    confetti.className = 'confetti';
+                    confetti.style.left = Math.random() * 100 + '%';
+                    confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
+                    confetti.style.animation = `confettiFall ${Math.random() * 3 + 2}s linear forwards`;
+                    
+                    document.body.appendChild(confetti);
+                    
+                    setTimeout(() => {
+                        confetti.remove();
+                    }, 5000);
+                }, i * 100);
+            }
+        }
+
+        // Handle modal clicks outside content
+        document.getElementById('monthModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeMonthModal();
+            }
+        });
+
+        // Keyboard accessibility
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeMonthModal();
+            }
+            // Arrow key navigation for slider when modal is open
+            if (document.getElementById('monthModal').classList.contains('active')) {
+                if (e.key === 'ArrowLeft') {
+                    goToSlide(0);
+                    clearInterval(slideInterval); // Stop auto-slide on manual navigation
+                } else if (e.key === 'ArrowRight') {
+                    goToSlide(1);
+                    clearInterval(slideInterval); // Stop auto-slide on manual navigation
+                }
+            }
+        });
+
+        // Smooth scrolling between sections
+        function scrollToSection(sectionId) {
+            document.getElementById(sectionId).scrollIntoView({
+                behavior: 'smooth'
+            });
+        }
+
+        // Add navigation buttons for manual control (optional)
+        function addNavigationButtons() {
+            const navContainer = document.createElement('div');
+            navContainer.style.cssText = `
+                position: fixed;
+                bottom: 20px;
+                right: 20px;
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+                z-index: 1001;
+            `;
+            
+            const buttons = [
+                { text: '🎉', action: () => scrollToSection('sequence1') },
+                { text: '👨‍👩‍👧‍👦', action: () => scrollToSection('sequence2') },
+                { text: '🚗', action: () => scrollToSection('sequence3') }
+            ];
+            
+            buttons.forEach(btn => {
+                const button = document.createElement('button');
+                button.textContent = btn.text;
+                button.style.cssText = `
+                    width: 50px;
+                    height: 50px;
+                    border-radius: 50%;
+                    border: none;
+                    background: rgba(255, 255, 255, 0.9);
+                    font-size: 20px;
+                    cursor: pointer;
+                    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+                    transition: all 0.3s ease;
+                `;
+                button.addEventListener('click', btn.action);
+                button.addEventListener('mouseenter', () => {
+                    button.style.transform = 'scale(1.1)';
+                });
+                button.addEventListener('mouseleave', () => {
+                    button.style.transform = 'scale(1)';
+                });
+                navContainer.appendChild(button);
+            });
+            
+            document.body.appendChild(navContainer);
+        }
+        
+        // Call to add navigation buttons (uncomment if needed)
+        // addNavigationButtons();
+
+        // Add intersection observer for better performance
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe sections for scroll animations
+        document.querySelectorAll('section').forEach(section => {
+            observer.observe(section);
+        });
+
+        // Add loading state
+        window.addEventListener('load', function() {
+            document.body.style.opacity = '1';
+            document.body.style.transition = 'opacity 0.5s ease-in';
+        });
+
+        // Preload critical images (if using actual images instead of emojis)
+        function preloadImages() {
+            // Add your image URLs here when replacing emoji placeholders
+            const imageUrls = [
+                // 'path/to/month1.jpg',
+                // 'path/to/month2.jpg',
+                // etc.
+            ];
+            
+            imageUrls.forEach(url => {
+                const img = new Image();
+                img.src = url;
+            });
+        }
+
+        // Call preload on page load
+        preloadImages();
+    </script>
+</body>
+</html>
